@@ -1,0 +1,50 @@
+﻿@page
+@model PromoCodesFront.Pages.PurchasedModel
+@{
+
+    ViewData["Title"] = "Purchase Completed";
+}
+
+<section class="page-indecator">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-xs-6">
+                <h2 class="heading">@ViewData["Title"]</h2>
+            </div>
+        </div>
+    </div>
+    <div class="divider divider--bottom-lg"></div>
+</section>
+
+<section class="container">
+
+    <div id="thankyou" class="row d-flex justify-center align-center flex-direction-column gap-1 hidden">
+        <div class="col-md-3 text-center">
+            <img src="~/images/thankyou.png" class="img-responsive" alt="Thank You" />
+        </div>
+        <div class="col-md-4 text-center">
+            <h3 class="margin-0">Thank you for your purchase!</h3>
+            <p>Now take a coffee break and get back to shopping again!</p>
+            <a class="d-block link link--shopping" asp-page="/Index">Continue Shopping</a>
+        </div>
+    </div>
+
+    <div class="bottom-space--large"></div>
+</section>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+
+            const purchaseCheck = sessionStorage.getItem("redeemPromoId");
+            if (!purchaseCheck) {
+                location.href = '/Index';
+            } else {
+
+                $("#thankyou").removeClass("hidden");
+            }
+
+        })
+    </script>
+}

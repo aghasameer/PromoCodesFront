@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <!-- Basic Page Needs -->
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta charset="utf-8" />
+    <title>@ViewData["Title"] - Promo Codes Processor</title>
+
+    <!-- Mobile Specific Metas-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="telephone=no" name="format-detection" />
+    <!-- Fonts -->
+    <!-- Open Sans -->
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400italic,600,700italic,400,700,800italic" rel="stylesheet" type="text/css" />
+    <!-- VarelaRound -->
+    <link href="http://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" type="text/css" />
+    <!-- Icon Font - Font Awesome -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" />
+
+    <link href="~/external/bootstrap-select/bootstrap-select.css" rel="stylesheet" />
+    <!-- Custom -->
+    <link href="~/css/style.css" asp-append-version="true" rel="stylesheet" />
+    <!-- *** Favicons *** -->
+    <!--[if IE]><link rel="icon" href="favicons/favicon_16x16.ico" /><![endif]-->
+    <link rel="icon" href="~/favicons/favicon_96x96.png" />
+    <!-- Specifying a Webpage Icon for Web Clip -->
+    <link rel="apple-touch-icon-precomposed" href="~/favicons/favicon_57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/favicons/favicon_72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/favicons/favicon_114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/favicons/favicon_144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="~/favicons/favicon_180x180.png" />
+    <!-- Basic JavaScript-->
+    <!-- Modernizr -->
+    <script src="external/modernizr/modernizr.custom.js"></script>
+</head>
+
+<body>
+    <div class="wrapper" id="top">
+        <!-- Header section -->
+        <header class="header header--shop">
+            <div class="header-fixed">
+                <div class="header-line header-line--shop waypoint" data-animate-down="header-up" data-animate-up="header-down">
+                    <div class="container">
+                        <!-- Contact information about company -->
+                        <address class="contact-info pull-left hidden-lower">
+                            <a class="contact-info__item" href="tel://+966564432971"> <i class="fa fa-mobile"></i> +966-56-4432971 </a>
+                            <a class="contact-info__item" href="mailto:aghazsameer@gmail.com"> <i class="fa fa-envelope"></i> aghazsameer@gmail.com </a>
+                        </address>
+                        <!-- end contact information -->
+                        <ol class="breadcrumb breadcrumb--nav">
+                            <li><a id="LoginButton" asp-page="/Login">Administrator Login</a></li>
+                            <li class="hidden"><a asp-page="/Dashboard" id="DashboardButton">Dashboard</a></li>
+                            <li class="hidden"><a href="#" id="LogoutButton">Logout</a></li>
+                        </ol>
+                    </div>
+                    <!-- end container -->
+                </div>
+                <div class="fixed-top header-down">
+                    <div class="container relative-element" style="display: flex; justify-content: center">
+                        <!--  Logo  -->
+                        <a class="logo logo--shop" asp-page="/Index">
+                            <h1 class="logo__text">PROMO CODES PROCESSOR</h1>
+                        </a>
+                        <!-- End Logo -->
+                    </div>
+                    <!-- end container -->
+                    <!-- Colored divider -->
+                    <div class="divider-color"></div>
+                </div>
+                <!-- end fixed top block -->
+            </div>
+        </header>
+        <!-- end header section -->
+        @RenderBody()
+
+
+        <!-- Footer section -->
+        <div class="sticky-footer">
+            <div class="divider-color"></div>
+            <footer class="footer">
+                <div class="container">
+                    <!-- end row -->
+                    <div class="copy" style="margin-top: 0">
+                        &copy; Promo Codes Processor, 2023. All rights reserved. Developed by <a class="text-info" href="https://linkedin.com/in/aghasameer" target="_blank">Agha Sameer</a>
+                    </div>
+                </div>
+                <!-- end container -->
+            </footer>
+        </div>
+        <!-- end footer section -->
+        <div class="top-scroll"><i class="fa fa-angle-up"></i></div>
+    </div>
+    <!-- JavaScript-->
+    <!-- External-->
+    <!-- jQuery 1.10.1-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <!-- Bootstrap 3-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <script src="~/external/scrollto/jquery.scrollTo.min.js"></script>
+    <!-- Select box -->
+    <script src="~/external/bootstrap-select/bootstrap-select.js"></script>
+    <!-- Custom -->
+    <script src="~/js/custom.js" asp-append-version="true"></script>
+    
+    <script src="~/js/promoprocessor.js" asp-append-version="true"></script>
+
+    <script>
+        tooltips();
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

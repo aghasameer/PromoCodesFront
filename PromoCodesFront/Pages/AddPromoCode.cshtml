@@ -1,0 +1,310 @@
+﻿@page
+@model PromoCodesFront.Pages.AddPromoCodeModel
+@{
+
+    ViewData["Title"] = "Add Promo Code";
+
+}
+
+<section class="page-indecator">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-xs-6">
+                <h2 class="heading">@ViewData["Title"]</h2>
+            </div>
+        </div>
+    </div>
+    <div class="divider divider--bottom-lg"></div>
+</section>
+
+<section class="container">
+
+
+
+    <div class="row">
+
+        <div id="create_error" class="alert alert-danger alert-visible hidden">
+            <span class="alert-market">
+                <i class="fa fa-minus-circle"></i>
+            </span>
+            <strong>Error</strong> <span id="create_error_message"></span>
+
+        </div>
+
+        <form id="createPromo" name="createPromo" method="POST">
+
+            <div class="col-md-4 col-sm-12">
+                <div class="form-wrapper">
+                    <div class="contact">
+                        <label class="label">Promo Code <span class="text-danger">*</span></label>
+                        <input required class="contact__field promo-code-name promo_item promo_item_required text-uppercase" pattern="^[A-Za-z0-9]{4,30}$" name="name" type="text" maxlength="20" placeholder="SUPERSAVER">
+                        <small class="help-block">Name should include only English alphabets and numbers and must be between 4 and 30 characters.</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12">
+                <div class="form-wrapper">
+                    <div class="select select--simple">
+                        <label class="label">Discount Type <span class="text-danger">*</span></label>
+                        <select class="form-control promo_item promo_item_required promo_item_number" name="discount_type" tabindex="0">
+                            <option selected value="1">Percentage</option>
+                            <option value="2">Fixed Amount</option>
+                        </select>
+                        <small class="help-block">Choosing this to be a fixed amount shall only provide for a fixed value discount on the purchase total.</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12">
+                <div class="form-wrapper">
+                    <div class="contact">
+                        <label class="label">Discount Value <span class="text-danger">*</span></label>
+                        <input required class="contact__field promo_item promo_item_required" value="0" min="1" name="discount_value" type="number">
+                        <small class="help-block">Discount can not be more than 100 if the Discount Type is set as percentage.</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="bottom-space--sm"></div>
+
+            <div class="col-md-4 col-sm-12">
+                <div class="form-wrapper">
+                    <div class="select select--simple">
+                        <label class="label">Free Shipping <span class="text-danger">*</span></label>
+                        <select class="form-control promo_item promo_item_required promo_item_boolean" name="free_shipping" tabindex="0">
+                            <option selected value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                        <small class="help-block">Setting this option to Yes shall waive any applicable shipping fees on the purchase.</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12">
+                <div class="form-wrapper">
+                    <div class="contact">
+                        <label class="label">Minimum Order Total <span class="text-danger">*</span></label>
+                        <input required class="contact__field promo_item promo_item_required" name="min_order" value="0" type="number">
+                        <small class="help-block">Value set here shall require the purchase total to be at least this to redeem promo.</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-12">
+                <div class="form-wrapper">
+                    <div class="select select--simple">
+                        <label class="label">Multiple Use <span class="text-danger">*</span></label>
+                        <select class="form-control promo_item promo_item_required promo_item_boolean" name="multiple_use" tabindex="0">
+                            <option selected value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                        <small class="help-block">Setting this option to Yes shall allow the usage of this promo code more than once.</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="bottom-space--sm"></div>
+
+            <div class="col-md-6 col-sm-12">
+                <div class="form-wrapper">
+                    <div class="select select--simple">
+                        <label class="label">Limited Categories</label>
+                        <select id="promoCategories" class="select-box promo_item promo_item_array" multiple name="categories" tabindex="0">
+                        </select>
+                        <small class="help-block">Select multiple categories you wish to limit the promo usage on. Leave this empty if the promo discount applies to all product categories.</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12">
+                <div class="form-wrapper">
+                    <div class="select select--simple">
+                        <label class="label">Limited Users</label>
+                        <select id="promoUsers" class="select-box promo_item promo_item_array" multiple name="users" tabindex="0">
+                        </select>
+                        <small class="help-block">Select multiple users you wish to limit the promo usage on. Leave this empty if the promo discount applies to all users.</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+            <div class="bottom-space--sm"></div>
+
+
+            <div class="col-md-12">
+                <div class="form-wrapper">
+                    <div class="contact">
+                        <label class="label">Description</label>
+                        <textarea class="contact__field contact__area promo_item" rows="3" maxlength="300" name="description" placeholder="Helpful description about the promo"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="col-md-12">
+                <div class="divider divider--bottom-sm"></div>
+                <div class="form-wrapper text-right">
+                    <a class="btn btn--decorated btn-primary" asp-page="/Dashboard">Cancel</a>
+                    <button class="btn btn--decorated btn-success btn-submit" type="submit">Create Promo</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div class="bottom-space--large"></div>
+
+</section>
+
+@section Scripts
+{
+
+    <script>
+
+        const urlParams = new URLSearchParams(window.location.search.toLowerCase())
+        const editPromoId = urlParams.get('id');
+
+        $(document).ready(function () {
+
+            let session = readCookie("admin");
+            if (session != "true") {
+                eraseCookie("admin");
+                location.href = "/Index";
+            }
+
+
+            getCategories();
+            getUsers();
+
+            setTimeout(function () {
+                selectBox();
+            }, 200)
+
+            if (editPromoId) {
+                $(".promo-code-name").attr("disabled", "disabled");
+                getPromo(editPromoId);
+                //console.log('edit', editPromoId);
+            }
+
+        })
+
+        $("#createPromo").on("submit", function (e) {
+            e.preventDefault();
+            $("#create_error").addClass("hidden");
+            let promoData = {};
+
+            const promo_item_fields = $(".promo_item");
+
+            $.each(promo_item_fields, function (key, value) {
+                const item = this;
+                if ($(item).hasClass("promo_item_required") && (item.value == "" || item.value == null || item.value == undefined)) {
+                    alert("Please provide values for all required fields.");
+                    e.preventDefault();
+                    return false;
+                }
+
+                if ($(item).attr("name") != undefined) {
+
+                    if ($(item).hasClass("promo_item_array") && $(this).val() != null) {
+
+                        let list = $(this).val().join(",");
+                        promoData[$(item).attr("name")] = list;
+
+                    } else {
+
+                        let value = $(this).val();
+
+                        if ($(item).attr("type") == "number") {
+                            value = Number(value);
+                        }
+
+                        if ($(item).hasClass("promo_item_boolean")) {
+                            value = value == 0 ? false : true;
+                        }
+
+                        promoData[$(item).attr("name")] = value;
+                    }
+
+                }
+            })
+
+            if (promoData.discount_type == 1 && promoData.discount_value > 100) {
+                alert("Percentage type discounts cannot be more than 100.");
+                e.preventDefault();
+                return false;
+            }
+
+            if (!editPromoId) {
+
+                $.ajax({
+                    dataType: "json",
+                    cache: false,
+                    async: true,
+                    type: "POST",
+                    url: "https://promocodesprocessor.azurewebsites.net/api/Promos",
+                    data: JSON.stringify(promoData),
+                    contentType: "application/json; charset=utf-8",
+                    traditional: true,
+                    success: function (data) {
+
+                        location.href = '/Dashboard';
+
+                    },
+                    complete: function () {
+
+
+                    },
+                    error: function (x, o, m) {
+
+                        const error = JSON.parse(x.responseText);
+                        $("#create_error_message").text(error.message);
+                        $("#create_error").removeClass("hidden");
+                        return false;
+                    },
+                })
+
+            } else {
+
+                promoData["id"] = editPromoId;
+
+                $.ajax({
+                    dataType: "json",
+                    cache: false,
+                    async: true,
+                    type: "PUT",
+                    url: "https://promocodesprocessor.azurewebsites.net/api/Promos",
+                    data: JSON.stringify(promoData),
+                    contentType: "application/json; charset=utf-8",
+                    traditional: true,
+                    success: function (data) {
+
+                        location.href = '/Dashboard';
+
+                    },
+                    complete: function () {
+
+
+                    },
+                    error: function (x, o, m) {
+
+                        const error = JSON.parse(x.responseText);
+                        $("#create_error_message").text(error.message);
+                        $("#create_error").removeClass("hidden");
+                        return false;
+                    },
+                })
+
+            }
+
+            
+
+
+        })
+    </script>
+
+}

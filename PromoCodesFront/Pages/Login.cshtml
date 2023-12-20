@@ -1,0 +1,58 @@
+﻿@page
+@model PromoCodesFront.Pages.LoginModel
+@{
+    ViewData["Title"] = "Login";
+
+}
+
+<section class="page-indecator">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2 class="heading">Administration Login</h2>
+            </div>
+        </div>
+    </div>
+    <div class="divider divider--bottom-lg"></div>
+</section>
+<!-- end section show current page and breadcrumb -->
+<section class="container">
+    
+    <div id="wrong_creds" class="alert alert-danger alert-visible hidden">
+        <span class="alert-market">
+            <i class="fa fa-minus-circle"></i>
+        </span>
+        <strong>Error</strong> Incorrect Username or Password;
+        
+    </div>
+    <div class="login">
+        <form class="contact" id="loginform" name="login" method="post">
+            <input class="contact__field" name="admin-user" type="email" placeholder="email" value="admin@promos.com" />
+            <input class="contact__field" name="admin-password" type="password" placeholder="password" value="Admin123#" />
+            <button class="btn test-btn btn-primary login__btn" type="submit">Login</button>
+        </form>
+    </div>
+</section>
+
+@section Scripts
+{
+
+    <script>
+        $("#loginform").submit(function (e) {
+            e.preventDefault();
+            const user = $("[name='admin-email']").val();
+            const pass = $("[name='admin-password']").val()
+
+            if (user != adminUser && pass != adminPass) {
+                $("#wrong_creds").removeClass("hidden");
+                return false;
+            } else {
+                $("#wrong_creds").addClass("hidden");
+            }
+
+            createCookie("admin", "true");
+            location.href = "/Dashboard";
+        })
+    </script>
+
+}

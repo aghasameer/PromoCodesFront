@@ -1,0 +1,150 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Shopping Cart";
+}
+
+<!-- Section show current page and breadcrumb -->
+<section class="page-indecator">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-xs-6">
+                <h2 class="heading">@ViewData["Title"]</h2>
+            </div>
+            <div class="col-sm-3 col-xs-6 text-right">
+                <select id="promoUsers" class="select-user form-control" style="margin-top: 21px;">
+                    <option value="0">Select User</option>
+                </select>
+
+            </div>
+        </div>
+    </div>
+    <div class="divider divider--bottom-lg"></div>
+</section>
+<!-- end section show current page and breadcrumb -->
+<section class="container">
+    <div class="table-responsive">
+        <a id="resetValues" href="#"><p class="text-info text-right"><i class="fa fa-refresh"></i> Reset Values</p></a>
+        <table id="productsTable" class="table table-bordered table--wide table--cart">
+            <colgroup class="col-width"></colgroup>
+            <colgroup class="col-width"></colgroup>
+            <colgroup class="col-width"></colgroup>
+            <colgroup class="col-width"></colgroup>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Unit Price</th>
+                    <th class="hidden-smallest">Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <h2 class="block-title block-title--top-s">Final Calculation</h2>
+    <div class="row d-flex justify-center">
+        <!-- end col -->
+        <div class="col-sm-7">
+            <!-- <h3 class="sub-header sub-header--shop sub-header--side">Cart Totals:</h3> -->
+            <table id="cart_summary" class="table--short ">
+                <colgroup class="col-half"></colgroup>
+                <colgroup class="col-half"></colgroup>
+                <tr>
+                    <td>Cart subtotal:</td>
+                    <td class="checkout__result ">
+                        SAR <span class="cart_subtotal"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Shipping:</td>
+                    <td class="checkout__result">
+                        SAR <span class="cart_shipping"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Discount:</td>
+                    <td class="checkout__result">
+                        SAR <span class="cart_discount"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Promo Code:</td>
+                    <td class="checkout__result cart_promocode">
+                        <div class="promo-code-group">
+                            <input id="promoCode" class="promo-input" maxlength="30" type="text" value="SUPERSAVER" placeholder="">
+                            <button id="applyPromoCode" class="promo-button" type="button">Apply</button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div class="checkout__sum checkout__sum--large">Total: SAR <span class="cart_total"></span></div>
+            <div class="btn-wrapper">
+                <a id="completePurchase" class="btn btn-success test-btn" href="#">Complete Purchase</a>
+            </div>
+        </div>
+        <!-- end col -->
+    </div>
+    <!-- end row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div id="redeem_error" class="alert alert-danger alert-visible hidden">
+                <span class="alert-market">
+                    <i class="fa fa-minus-circle"></i>
+                </span>
+                <strong>Error</strong> <span id="redeem_error_message"></span>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="bottom-space--large"></div>
+    <div class="divider-brand divider--top-universal"></div>
+</section>
+
+
+<!-- end container -->
+@section Scripts {
+
+    <script>
+
+        $(document).ready(function () {
+            sessionStorage.clear();
+            getProducts();
+            getUsers();
+            $("#productsTable").on("click", ".qtyplus, .qtyminus", function (e) {
+
+                e.preventDefault();
+                quantityChange(this)
+
+            })
+
+            $("#resetValues").on("click", function (e) {
+                e.preventDefault();
+                location.reload();
+            })
+
+            $("#completePurchase").on("click", function (e) {
+                e.preventDefault();
+
+                const promoId = sessionStorage.getItem("redeemPromoId");
+                const userId = Number($("#promoUsers").val());
+
+                if (!promoId || !userId) {
+                    alert("You cannot complete a purchase without a promo code at this shop. Give it another go.")
+                    return false;
+                } else {
+
+                    if (confirm("One step away! Go ahead with completing your purchase?")) {
+                        purchasePromo(promoId, userId);
+                    }
+
+                }
+            })
+
+        })
+
+    </script>
+
+}
