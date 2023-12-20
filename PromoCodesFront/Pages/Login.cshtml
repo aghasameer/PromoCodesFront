@@ -1,7 +1,7 @@
 ﻿@page
 @model PromoCodesFront.Pages.LoginModel
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Administration Login";
 
 }
 
@@ -9,7 +9,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
-                <h2 class="heading">Administration Login</h2>
+                <h2 class="heading">@ViewData["Title"]</h2>
             </div>
         </div>
     </div>
@@ -27,8 +27,8 @@
     </div>
     <div class="login">
         <form class="contact" id="loginform" name="login" method="post">
-            <input class="contact__field" name="admin-user" type="email" placeholder="email" value="admin@promos.com" />
-            <input class="contact__field" name="admin-password" type="password" placeholder="password" value="Admin123#" />
+            <input class="contact__field" name="admin-user" type="email" placeholder="email" value="" />
+            <input class="contact__field" name="admin-password" type="password" placeholder="password" value="" />
             <button class="btn test-btn btn-primary login__btn" type="submit">Login</button>
         </form>
     </div>
