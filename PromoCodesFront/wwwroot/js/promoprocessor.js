@@ -220,7 +220,7 @@ function getPromos() {
                     $(container).append(`
                         <tr data-promo-id=${promoItem.id}>
                             <td>
-                                <p class="promo-name margin-0 text-bold">${promoItem.name} <i data-toggle="tooltip" data-placement="top" title="${promoItem.description}" class="fa fa-question-circle tooltip-link fa-icon-2x"></i></p>
+                                <p class="promo-name margin-0 text-bold">${promoItem.name} <i data-toggle="tooltip" data-placement="top" title="${promoItem.description}" class="fa fa-question-circle tooltip-link fa-icon-2x ${promoItem.description == "" ? "hidden" : ""}"></i></p>
                                 <small>Redeemed: <span class="promo-redeem-count">${promoItem.redeem_count}</span></small>
                             </td>
                             <td>
