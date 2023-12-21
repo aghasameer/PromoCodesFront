@@ -275,10 +275,16 @@ function deletePromo(promoId) {
             $("#promosTable").find(`tr[data-promo-id=${promoId}]`).remove();
 
 
+
         },
         complete: function () {
 
-            /*selectBox();*/
+            getPromos();
+            //let children = $("#promosTable tbody tr");
+            //console.log(children);
+            //if (children == 0) {
+            //    $("#promosTable tbody").html(`<tr><td colspan="100%" class="text-center"> No promos yet. </td></tr>`);
+            //}
         }
     })
 
@@ -333,7 +339,7 @@ $("#applyPromoCode").on("click", function (e) {
         return false;
     }
 
-    
+
     $(this).attr("disabled", "disabled");
     $("#promoCode").attr("disabled", "disabled");
     $(".quantity__elem").attr("disabled", "disabled");
