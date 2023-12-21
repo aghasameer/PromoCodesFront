@@ -36,7 +36,7 @@ function getProducts() {
             const selected = shuffled.slice(0, 4);
 
             const container = document.querySelector("#productsTable tbody");
-            
+
             $.each(selected, function (key, value) {
 
                 let product = this;
@@ -75,7 +75,7 @@ function getProducts() {
         },
         complete: function () {
             qNumber();
-            
+
             calculateTotals()
 
         }
@@ -85,7 +85,7 @@ function getProducts() {
 
 function getUsers() {
 
-    const container = $("#promoUsers"); 
+    const container = $("#promoUsers");
 
     $.ajax({
         dataType: "json",
@@ -94,9 +94,9 @@ function getUsers() {
         url: "https://promocodesprocessor.azurewebsites.net/api/Users",
         success: function (data) {
 
-            
+
             $.each(data.result, function (key, value) {
-                
+
                 $(container).append(`
                     <option ${value.user_id == 1 ? "selected" : ""} value="${value.user_id}">${value.user_name}</option>
                 `)
@@ -167,7 +167,7 @@ function calculateTotals() {
     const cart_summary = $("#cart_summary");
 
     let cartSubtotal = 0;
-    
+
 
     const lineTotals = $("#productsTable [data-product-total]");
 
@@ -262,7 +262,7 @@ function getPromos() {
 
 function deletePromo(promoId) {
 
-    
+
 
     $.ajax({
         dataType: "json",
@@ -287,7 +287,7 @@ function deletePromo(promoId) {
 
 function getPromo(promoId) {
 
-    
+
 
     $.ajax({
         dataType: "json",
@@ -325,10 +325,6 @@ $("#applyPromoCode").on("click", function (e) {
     e.preventDefault();
 
     $("#redeem_error").addClass("hidden");
-    $(this).attr("disabled", "disabled");
-    $("#promoCode").attr("disabled", "disabled");
-    $(".quantity__elem").attr("disabled", "disabled");
-
     const promoUser = $("#promoUsers").val();
     const promoCode = $("#promoCode").val();
 
@@ -336,6 +332,12 @@ $("#applyPromoCode").on("click", function (e) {
         alert("Enter a promo code to redeem discount.");
         return false;
     }
+
+    
+    $(this).attr("disabled", "disabled");
+    $("#promoCode").attr("disabled", "disabled");
+    $(".quantity__elem").attr("disabled", "disabled");
+
 
     let redeemData = {
         user_id: promoUser,
@@ -469,7 +471,7 @@ function purchasePromo(promoId, userId) {
             } else {
                 $("#redeem_error_message").text("Something strange has happened. Try again in a while. Server Code: " + x.status);
             }
-            
+
             $("#redeem_error").removeClass("hidden");
 
             $("#applyPromoCode").attr("disabled", false);
